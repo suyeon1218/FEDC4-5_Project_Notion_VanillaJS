@@ -39,7 +39,7 @@ Root Document 리스트를 호출하여 출력하고, 해당 도큐먼트들의 
 
 ### 기본 구현
 
-- [ ] DocumentConent Page 를 생성한다.
-- [ ] DocumentContent Component 를 생성한다.
-  - [ ] 제목을 출력한다.
-  - [ ] 본문을 출력한다.
+- [x] DocumentConent Page 를 생성한다.
+- [x] DocumentContent Component 를 생성한다.
+  - [x] 제목을 출력한다.
+  - [x] 본문을 출력한다.

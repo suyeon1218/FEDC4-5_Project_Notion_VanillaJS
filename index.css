@@ -1,0 +1,16 @@
+.App {
+  display: flex;
+}
+
+.list-page-container {
+  width: 40%;
+}
+
+.content-page-container {
+  width: 60%;
+}
+
+.edit-container {
+  display: flex;
+  flex-direction: column;
+}

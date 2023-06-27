@@ -16,3 +16,20 @@ export const getRootDocument = async() => {
     throw new Error(error.message);
   }
 }
+
+export const getDocumentContent = async(id) => {
+  try {
+    const response = await fetch(`${API_END_POINT}/${id}`, {
+      headers: {
+        'x-username': 'roto'
+      }
+    });
+
+    if (response.ok) {
+      const data = response.json();
+      return data;
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
