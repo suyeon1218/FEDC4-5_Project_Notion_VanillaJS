@@ -26,11 +26,11 @@ Root Document 리스트를 호출하여 출력하고, 해당 도큐먼트들의 
 
 ### 기본 구현
 
-- [ ] DocumentList Page 를 생성한다.
+- [x] DocumentList Page 를 생성한다.
 
-- [ ] DocumentList 컴포넌트를 생성한다.
-  - [ ] li 태그 안에 + 토글 버튼과 > 토글 버튼을 생성한다.
-  - [ ] li 태그 안에 Document 의 제목을 출력한다.
+- [x] DocumentList 컴포넌트를 생성한다.
+  - [x] li 태그 안에 + 토글 버튼과 > 토글 버튼을 생성한다.
+  - [x] li 태그 안에 Document 의 제목을 출력한다.
   - [ ] 토글 버튼이 아닌 제목을 클릭하면 해당 페이지를 렌더링 한다. 
 
 ## Document Content 페이지
