@@ -1,7 +1,7 @@
 import { getDocumentContent } from '../utils/API.js';
 import Edit from '../components/Edit.js';
 
-export default class Documentcontent {
+export default class EditPage {
   constructor(target, initialState) {
     this.$target = target;
     this.state = { currDocument: initialState, documentData: null }
@@ -16,7 +16,7 @@ export default class Documentcontent {
     this.$target.appendChild(this.$div);
   }
 
-  setcurrDocument = (docuemntId) => {
+  setCurrDocument = (docuemntId) => {
     this.state.currDocument = docuemntId;
     this.fetchDocumentData(docuemntId);
   }
@@ -28,6 +28,7 @@ export default class Documentcontent {
   }
 
   render = () => {
+    this.$div.innerHTML = ``;
     new Edit(this.$div, this.state.documentData);
   }
 }

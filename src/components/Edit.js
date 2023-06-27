@@ -2,7 +2,6 @@ export default class Edit {
   constructor(target, initialState) {
     this.$target = target;
     this.state = initialState;
-    console.log(this.state);
     this.$div = null;
     this.initDiv();
     this.render();

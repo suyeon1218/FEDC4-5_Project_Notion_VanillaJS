@@ -1,9 +1,10 @@
 import List from '../components/List.js';
 
-export default class DocumentList {
-  constructor(target, initialState) {
+export default class ListPage {
+  constructor(target, initialState, onClick) {
     this.$target = target;
     this.state = { rootDocument: initialState, openDocument: [] }
+    this.onClick = onClick;
     this.$div = null;
     this.initDiv();
     this.render();
@@ -16,6 +17,6 @@ export default class DocumentList {
   }
 
   render = () => {
-    this.state.rootDocument.forEach(docuemnt => new List(this.$div, docuemnt, 0));
+    this.state.rootDocument.forEach(document => new List(this.$div, document, 0, this.onClick));
   }
 }

@@ -1,16 +1,16 @@
-import DocumentList from './page/DocumentList.js';
-import Documentcontent from './page/DocumentContent.js';
+import ListPage from './page/ListPage.js';
+import EditPage from './page/EditPage.js';
 
 export default class App {
   constructor(target, initialState) {
     this.state = { rootDocument: initialState, currDocument: initialState[0].id };
-    this.documentList = new DocumentList(target, this.state.rootDocument);
-    this.documentContent = new Documentcontent(target, this.state.currDocument);
+    this.ListPage = new ListPage(target, this.state.rootDocument, this.onClick);
+    this.EditPage = new EditPage(target, this.state.currDocument);
   }
 
   setCurrDocument = (id) => {
     this.state.currDocument = id;
-    this.documentContent.setCurrDocument(id);
+    this.EditPage.setCurrDocument(id);
   }
 
   onClick = (id) => {

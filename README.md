@@ -18,7 +18,7 @@
 
 Document List와 Document Content 의 연결을 담당한다.
 
-- [ ] Document List 클릭 시 Documnet Content 를 호출한다.
+- [x] Document List 클릭 시 Documnet Content 를 호출한다.
 
 ## Document List 페이지
 
@@ -31,7 +31,7 @@ Root Document 리스트를 호출하여 출력하고, 해당 도큐먼트들의 
 - [x] DocumentList 컴포넌트를 생성한다.
   - [x] li 태그 안에 + 토글 버튼과 > 토글 버튼을 생성한다.
   - [x] li 태그 안에 Document 의 제목을 출력한다.
-  - [ ] 토글 버튼이 아닌 제목을 클릭하면 해당 페이지를 렌더링 한다. 
+  - [x] 토글 버튼이 아닌 제목을 클릭하면 해당 페이지를 렌더링 한다. 
 
 ## Document Content 페이지
 

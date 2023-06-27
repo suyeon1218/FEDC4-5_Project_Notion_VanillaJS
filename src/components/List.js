@@ -1,8 +1,9 @@
 export default class List {
-  constructor(target, initialState, depth) {
+  constructor(target, initialState, depth, onClick) {
     this.$target = target;
     this.state = { documentInfo: initialState, isOpen: false }
     this.depth = depth;
+    this.onClick = onClick;
     this.$ul = null;
     this.initUl();
     this.render();
@@ -22,5 +23,16 @@ export default class List {
         <button class='add-toggle-button'>﹢</button>
       </li>
     `
+
+    this.addUlEvent();
+  }
+
+  addUlEvent = () => {
+    this.$ul.addEventListener('click', event => {
+      const $li = event.target.closest('li');
+      const { id } = $li.dataset;
+
+      this.onClick(id);
+    })
   }
 }
