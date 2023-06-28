@@ -3,7 +3,7 @@ import List from '../components/List.js';
 export default class ListPage {
   constructor(target, initialState, onClick) {
     this.$target = target;
-    this.state = { rootDocument: initialState, openDocument: [] }
+    this.state = { rootDocument: initialState }
     this.onClick = onClick;
     this.$div = null;
     this.initDiv();
@@ -17,6 +17,10 @@ export default class ListPage {
   }
 
   render = () => {
-    this.state.rootDocument.forEach(document => new List(this.$div, document, 0, this.onClick));
+    try {
+      this.state.rootDocument.forEach(document => new List(this.$div, document, 0, this.onClick));
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

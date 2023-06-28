@@ -35,11 +35,11 @@ Root Document 리스트를 호출하여 출력하고, 해당 도큐먼트들의 
 
 ### 하위 list 불러오기
 
-- [ ] > 토글 버튼을 클릭하면 하위 document 를 가져온다.
-  - [ ] 토글 버튼에 이벤트를 추가한다.
-  - [ ] 클릭한 document 의 하위 document 를 가져온다.
-  - [ ] open document 목록에 해당 document 를 추가한다.
-  - [ ] open document 에 맞춰 컴포넌트를 새로 렌더링 한다.
+- [x] > 토글 버튼을 클릭하면 하위 document 를 가져온다.
+  - [x] 토글 버튼에 이벤트를 추가한다.
+  - [x] 클릭한 document 의 하위 document 를 가져온다.
+  - [x] open document 목록에 해당 document 를 추가한다.
+  - [x] open document 에 맞춰 컴포넌트를 새로 렌더링 한다.
 
 ### 글 삭제
 
