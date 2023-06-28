@@ -33,3 +33,20 @@ export const getDocumentContent = async(id) => {
     throw new Error(error.message);
   }
 }
+
+export const removeDocument = async(id) => {
+  try {
+    const response = await fetch(`${API_END_POINT}/${id}`, {
+      headers: {
+        'x-username': 'roto'
+      },
+      method: 'DELETE'
+    })
+
+    if (response.ok) {
+      console.log(`${id}document 삭제`);
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
