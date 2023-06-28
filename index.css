@@ -1,13 +1,31 @@
+* {
+  font-family: sans-serif;
+}
+
 .App {
   display: flex;
 }
 
+ul {
+  list-style: none;
+  padding-left: 0px;
+}
+
+button {
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+
 .list-page-container {
-  width: 40%;
+  width: 25%;
+  height: 100vh;
+  overflow-y: scroll;
+  font-size: 1rem;
 }
 
 .content-page-container {
-  width: 60%;
+  width: 75%;
 }
 
 .edit-container {
