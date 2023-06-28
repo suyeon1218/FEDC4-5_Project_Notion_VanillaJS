@@ -32,9 +32,16 @@ export default class List {
     `;
 
     if (this.state.isOpen === true) {
-      this.state.documentInfo.documents.forEach(document => {
-        new List(this.$ul, document, this.depth + 1, this.onClick);
-      })
+      if (this.state.documentInfo.documents.length > 0) {
+        this.state.documentInfo.documents.forEach(document => {
+          new List(this.$ul, document, this.depth + 1, this.onClick);
+        })
+      } else {
+        const $li = document.createElement('div');
+        $li.className = `depth-0${this.depth + 1}`
+        $li.innerText = '하위 페이지 없음';
+        this.$ul.appendChild($li);
+      }
     }
 
     this.addUlEvent();
@@ -46,9 +53,6 @@ export default class List {
       const $li = event.target.closest('li');
       const $button = event.target.closest('button');
       const { id } = $li.dataset;
-
-      console.log($li, id);
-      console.log($button);
 
       if ($button === null) {
         this.onClick(id);
