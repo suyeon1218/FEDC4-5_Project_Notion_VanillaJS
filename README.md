@@ -20,6 +20,11 @@ Document List와 Document Content 의 연결을 담당한다.
 
 - [x] Document List 클릭 시 Documnet Content 를 호출한다.
 
+### history 로 SPA 만들기
+
+- [x] 페이지를 바꾸면 각 url 을 url 창에 표시한다.
+- [x] history API 로 뒤로가기, 앞으로 가기를 구현한다.
+
 ## Document List 페이지
 
 Root Document 리스트를 호출하여 출력하고, 해당 도큐먼트들의 하위 리스트들을 관리한다.
@@ -57,6 +62,7 @@ Root Document 리스트를 호출하여 출력하고, 해당 도큐먼트들의 
  - [x] 클릭한 document 에 하위 document 를 가져온다.
  - [x] 하위 document 에 새 document 를 추가한다.
  - [x] 새로운 편집 페이지를 생성한다.
+ - [ ] 새로운 편집 페이지를 모달 형태로 만든다.
 
 ## Document Content 페이지
 
@@ -74,3 +80,11 @@ Root Document 리스트를 호출하여 출력하고, 해당 도큐먼트들의 
 - [x] Edit 컴포넌트에서 수정 기능을 추가한다.
   - [x] 디바운스로 자동저장 API 를 호출하여 저장한다.
 
+## 추가 기능
+
+- [ ] div 와 contentEditable 을 이용하여 편집기능을 업그레이드 한다.
+- [ ] 편집기 최하단에는 현재 편집 중인 document 의 하위 document 링크를 렌더링한다.
+- [ ] 편집기 내에서 다른 document name 을 적은 경우 해당 document 의 편집 링크를 거는 기능을 추가한다.
+- [ ] 낙관적 업데이트를 한다.
+- [ ] 리팩토링을 한다.
+- [ ] CSS 작업을 한다.

@@ -59,7 +59,7 @@ export default class List {
   renderChild = () => {
     if (this.state.documentInfo.documents.length > 0) {
       this.state.documentInfo.documents.forEach((document) => {
-        new List(this.$ul, document, this.depth + 1, this.showDocument, this.onRemove);
+        new List(this.$ul, document, this.depth + 1, this.showDocument, this.onRemove, this.onCreate);
       });
     } else {
       const $li = document.createElement('div');
@@ -99,8 +99,8 @@ export default class List {
         isOpen: true,
       };
       setOpenDocument(id);
-      this.onCreate(id);
       this.setState(nextState);
+      this.onCreate(id);
     } else if ($button.className === 'delete-toggle-button') {
       this.removeCurrNode(id);
     }
