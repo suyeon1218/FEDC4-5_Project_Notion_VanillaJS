@@ -60,6 +60,7 @@ export const editDocument = async(id, document) => {
     const response = await fetch(`${API_END_POINT}/${id}`, {
       method: 'PUT',
       headers: {
+        'Content-type': 'application/json',
         'x-username': 'roto'
       }, 
       body: JSON.stringify(document)

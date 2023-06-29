@@ -1,7 +1,8 @@
 export default class Edit {
-  constructor(target, initialState) {
+  constructor(target, initialState, saveDocument) {
     this.$target = target;
     this.state = initialState;
+    this.saveDocument = saveDocument;
     this.$div = null;
     this.initDiv();
     this.render();
@@ -19,14 +20,29 @@ export default class Edit {
   }
   
   render = () => {
-    try {
-      this.$div.innerHTML = `
-        <textarea class='title-area'>${this.state.title}</textarea>
-        <textarea class='content-area'>${this.state.content === null ? '' : this.state.content}</textarea>
-      `
-
-    } catch (error) {
-      console.log(error.message);
-    }
+    console.log(this.state.title);
+    this.$div.innerHTML = `
+      <input class='title-area' value='${this.state.title}'>
+      <textarea class='content-area'>${this.state.content === null ? '' : this.state.content}</textarea>
+    `
+    this.addWritingEvent();
   }
+
+  addWritingEvent = () => {
+    const $input = this.$div.querySelector('input');
+    const $textarea = this.$div.querySelector('textarea');
+    
+    this.$div.addEventListener('keyup', (event) => {
+      const document = {
+        title: $input.value,
+        content: $textarea.value
+      }
+      this.saveDocument(document);
+    })
+  }
+
+  onKeyUp = () => {
+    
+  }
+
 }

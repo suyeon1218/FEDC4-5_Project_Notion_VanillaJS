@@ -1,23 +1,18 @@
-import { getDocumentContent } from '../utils/API.js';
+import { getDocumentContent, editDocument } from '../utils/API.js';
 import Edit from '../components/Edit.js';
 
 export default class EditPage {
   constructor(target, initialState) {
     this.$target = target;
-    this.state = { currDocument: initialState, documentData: null }
+    this.state = { documentId: initialState, documentData: null }
     this.$div = null;
+    this.timer = null;
     this.initDiv();
     this.fetchDocumentData(initialState);
   }
-  
-  initDiv = () => {
-    this.$div = document.createElement('div');
-    this.$div.className = 'content-page-container';
-    this.$target.appendChild(this.$div);
-  }
 
   setCurrDocument = (docuemntId) => {
-    this.state.currDocument = docuemntId;
+    this.state.documentId = docuemntId;
     this.fetchDocumentData(docuemntId);
   }
 
@@ -27,8 +22,21 @@ export default class EditPage {
     this.render();
   }
 
+  saveDocument = (document) => {
+    clearTimeout(this.timer);
+    this.timer = setTimeout(async() => {
+      const editedDocument = await editDocument(this.state.documentId, document);
+    }, 200);
+  }
+
+  initDiv = () => {
+    this.$div = document.createElement('div');
+    this.$div.className = 'content-page-container';
+    this.$target.appendChild(this.$div);
+  }
+
   render = () => {
     this.$div.innerHTML = ``;
-    new Edit(this.$div, this.state.documentData);
+    new Edit(this.$div, this.state.documentData, this.saveDocument);
   }
 }
