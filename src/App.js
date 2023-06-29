@@ -5,7 +5,7 @@ export default class App {
   constructor(target, initialState) {
     console.log(initialState);
     this.state = { rootDocument: initialState, currDocument: initialState[0].id };
-    this.ListPage = new ListPage(target, this.state.rootDocument, this.onClick);
+    this.ListPage = new ListPage(target, this.state.rootDocument, this.showDocument);
     this.EditPage = new EditPage(target, this.state.currDocument);
   }
 
@@ -14,7 +14,9 @@ export default class App {
     this.EditPage.setCurrDocument(id);
   }
 
-  onClick = (id) => {
+  showDocument = (id) => {
     this.setCurrDocument(Number(id));
   }
+
+  
 }

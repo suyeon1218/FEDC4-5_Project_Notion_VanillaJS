@@ -5,14 +5,14 @@ import {
 } from '../utils/StorageHandler.js';
 
 export default class List {
-  constructor(target, initialState, depth, onClick, onRemove, onCreate) {
+  constructor(target, initialState, depth, showDocument, onRemove, onCreate) {
     this.$target = target;
     this.state = {
       documentInfo: initialState,
       isOpen: getCurrOpenState(initialState.id),
     };
     this.depth = depth;
-    this.onClick = onClick;
+    this.showDocument = showDocument;
     this.onRemove = onRemove;
     this.onCreate = onCreate;
     this.$ul = null;
@@ -59,7 +59,7 @@ export default class List {
   renderChild = () => {
     if (this.state.documentInfo.documents.length > 0) {
       this.state.documentInfo.documents.forEach((document) => {
-        new List(this.$ul, document, this.depth + 1, this.onClick, this.onRemove);
+        new List(this.$ul, document, this.depth + 1, this.showDocument, this.onRemove);
       });
     } else {
       const $li = document.createElement('div');
@@ -78,7 +78,7 @@ export default class List {
       const { id } = $li.dataset;
 
       if ($button === null) {
-        this.onClick(id);
+        this.showDocument(id);
       } else {
         this.checkButtonType($button, id);
       }

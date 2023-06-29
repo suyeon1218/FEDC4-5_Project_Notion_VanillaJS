@@ -2,10 +2,10 @@ import List from '../components/List.js';
 import { getRootDocument, removeDocument, addDocument } from '../utils/API.js';
 
 export default class ListPage {
-  constructor(target, initialState, onClick) {
+  constructor(target, initialState, showDocument) {
     this.$target = target;
     this.state = initialState
-    this.onClick = onClick;
+    this.showDocument = showDocument
     this.$div = null;
     this.initDiv();
     this.render();
@@ -34,9 +34,10 @@ export default class ListPage {
       title: '제목 없음',
       parent: Number(id),
     }
-    await addDocument(document);
+    const createdDocument = await addDocument(document);
     const nextState = await getRootDocument();
 
+    this.showDocument(createdDocument.id);
     this.setState(nextState);
   }
 
@@ -44,7 +45,7 @@ export default class ListPage {
     try {
       this.$div.innerHTML = ``;
       this.state.forEach(document => {
-        new List(this.$div, document, 0, this.onClick, this.onRemove, this.onCreate);
+        new List(this.$div, document, 0, this.showDocument, this.onRemove, this.onCreate);
       });
     } catch (error) {
       console.log(error);

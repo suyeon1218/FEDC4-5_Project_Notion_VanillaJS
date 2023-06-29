@@ -52,11 +52,11 @@ Root Document 리스트를 호출하여 출력하고, 해당 도큐먼트들의 
 
 ### 글 추가
 
-- [ ] + 버튼을 누르면 도큐먼트에 하위 doucment 를 생성한다.
+- [x] + 버튼을 누르면 도큐먼트에 하위 doucment 를 생성한다.
  - [x] + 토글 버튼에 이벤트를 추가한다.
  - [x] 클릭한 document 에 하위 document 를 가져온다.
  - [x] 하위 document 에 새 document 를 추가한다.
- - [ ] 새로운 편집 페이지를 생성한다.
+ - [x] 새로운 편집 페이지를 생성한다.
 
 ## Document Content 페이지
 
