@@ -34,6 +34,47 @@ export const getDocumentContent = async(id) => {
   }
 }
 
+export const addDocument = async(document) => {
+  try {
+    const response = await fetch(`${API_END_POINT}`, {
+      method: 'POST',
+      headers: {
+        'Content-type': 'application/json',
+        'x-username': 'roto'
+      }, 
+      body: JSON.stringify(document)
+    })
+
+    if (response.ok) { 
+      const data = response.json();
+
+      return data;
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
+export const editDocument = async(id, document) => {
+  try {
+    const response = await fetch(`${API_END_POINT}/${id}`, {
+      method: 'PUT',
+      headers: {
+        'x-username': 'roto'
+      }, 
+      body: JSON.stringify(document)
+    })
+
+    if (response.ok) { 
+      const data = response.json();
+
+      return data;
+    }
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
 export const removeDocument = async(id) => {
   try {
     const response = await fetch(`${API_END_POINT}/${id}`, {

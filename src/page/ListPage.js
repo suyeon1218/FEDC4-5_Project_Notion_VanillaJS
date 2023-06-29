@@ -1,5 +1,5 @@
 import List from '../components/List.js';
-import { getRootDocument, removeDocument } from '../utils/API.js';
+import { getRootDocument, removeDocument, addDocument } from '../utils/API.js';
 
 export default class ListPage {
   constructor(target, initialState, onClick) {
@@ -29,11 +29,22 @@ export default class ListPage {
     this.setState(nextState);
   }
 
+  onCreate = async(id) => {
+    const document = {
+      title: '제목 없음',
+      parent: Number(id),
+    }
+    await addDocument(document);
+    const nextState = await getRootDocument();
+
+    this.setState(nextState);
+  }
+
   render = () => {
     try {
       this.$div.innerHTML = ``;
       this.state.forEach(document => {
-        new List(this.$div, document, 0, this.onClick, this.onRemove);
+        new List(this.$div, document, 0, this.onClick, this.onRemove, this.onCreate);
       });
     } catch (error) {
       console.log(error);

@@ -5,7 +5,7 @@ import {
 } from '../utils/StorageHandler.js';
 
 export default class List {
-  constructor(target, initialState, depth, onClick, onRemove) {
+  constructor(target, initialState, depth, onClick, onRemove, onCreate) {
     this.$target = target;
     this.state = {
       documentInfo: initialState,
@@ -14,6 +14,7 @@ export default class List {
     this.depth = depth;
     this.onClick = onClick;
     this.onRemove = onRemove;
+    this.onCreate = onCreate;
     this.$ul = null;
     this.children = [];
     this.initUl();
@@ -33,6 +34,7 @@ export default class List {
 
   removeCurrNode = async (id) => {
     this.$target.removeChild(this.$ul);
+    setCloseDocumet(id);
     this.onRemove(id);
   };
 
@@ -42,7 +44,7 @@ export default class List {
         <button class='open-toggle-button'>${
           this.state.isOpen === true ? '▼' : '▶︎'
         }</button>
-        <span>${this.state.documentInfo.title}</span>
+        <span>${this.state.documentInfo.title === null ? '제목 없음' : this.state.documentInfo.title}</span>
         <button class='add-toggle-button'>﹢</button>
         <button class='delete-toggle-button'>X</button>
       </li>
@@ -83,19 +85,22 @@ export default class List {
     });
   };
 
-  checkButtonType = ($button, id) => {
+  checkButtonType = async($button, id) => {
     if ($button.className === 'open-toggle-button') {
       const nextState = {
         ...this.state,
         isOpen: !this.state.isOpen,
       };
-      if (nextState.isOpen === true) {
-        setOpenDocument(id);
-      } else {
-        setCloseDocumet(id);
-      }
+      nextState.isOpen === true ? setOpenDocument(id) : setCloseDocumet(id);
       this.setState(nextState);
     } else if ($button.className === 'add-toggle-button') {
+      const nextState = {
+        ...this.state,
+        isOpen: true,
+      };
+      setOpenDocument(id);
+      this.onCreate(id);
+      this.setState(nextState);
     } else if ($button.className === 'delete-toggle-button') {
       this.removeCurrNode(id);
     }

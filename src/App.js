@@ -3,6 +3,7 @@ import EditPage from './page/EditPage.js';
 
 export default class App {
   constructor(target, initialState) {
+    console.log(initialState);
     this.state = { rootDocument: initialState, currDocument: initialState[0].id };
     this.ListPage = new ListPage(target, this.state.rootDocument, this.onClick);
     this.EditPage = new EditPage(target, this.state.currDocument);
