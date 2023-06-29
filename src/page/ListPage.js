@@ -1,4 +1,5 @@
 import List from '../components/List.js';
+import Modal from '../components/Modal.js';
 import { getRootDocument, removeDocument, addDocument } from '../utils/API.js';
 
 export default class ListPage {
@@ -37,7 +38,7 @@ export default class ListPage {
     const createdDocument = await addDocument(document);
     const nextState = await getRootDocument();
 
-    this.showDocument(createdDocument.id);
+    new Modal(this.$target, createdDocument);
     this.setState(nextState);
   }
 

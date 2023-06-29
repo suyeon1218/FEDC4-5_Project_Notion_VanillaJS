@@ -40,9 +40,4 @@ export default class Edit {
       this.saveDocument(document);
     })
   }
-
-  onKeyUp = () => {
-    
-  }
-
 }
