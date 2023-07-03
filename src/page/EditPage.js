@@ -33,6 +33,10 @@ export default class EditPage {
   }
 
   initDiv = () => {
+    const preDiv = document.querySelector('.content-page-container');
+    if (preDiv !== null) {
+      this.$target.removeNode(preDiv);
+    }
     this.$div = document.createElement('div');
     this.$div.className = 'content-page-container';
     this.$target.appendChild(this.$div);

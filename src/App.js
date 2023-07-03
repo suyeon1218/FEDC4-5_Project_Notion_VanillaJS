@@ -6,7 +6,11 @@ export default class App {
   constructor(target, rootDocument) {
     this.$target = target;
     this.state = { rootDocument: rootDocument, currDocument: null };
-    this.listPage = null;
+    this.listPage = new ListPage(
+      this.$target,
+      this.state.rootDocument,
+      this.showDocument
+    );
     this.editPage = null;
     init(this.route);
     this.route();
@@ -16,12 +20,6 @@ export default class App {
   route = () => {
     try {
       const { pathname } = location;
-      this.$target.innerHTML = ``;
-      this.listPage = new ListPage(
-        this.$target,
-        this.state.rootDocument,
-        this.showDocument
-      );
       if (this.state.currDocument !== null && pathname.startsWith('/') === true) {
         // todo: edit 페이지 검사 구문을 좀 더 넣어야겠다
         this.editPage = new EditPage(this.$target, this.state.currDocument, this.showDocument);
