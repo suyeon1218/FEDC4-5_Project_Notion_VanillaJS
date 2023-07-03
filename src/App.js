@@ -5,7 +5,7 @@ import { init, routeChange } from './utils/Route.js';
 export default class App {
   constructor(target, rootDocument) {
     this.$target = target;
-    this.state = { rootDocument: rootDocument, currDocument: '' };
+    this.state = { rootDocument: rootDocument, currDocument: null };
     this.listPage = null;
     this.editPage = null;
     init(this.route);
@@ -22,10 +22,9 @@ export default class App {
         this.state.rootDocument,
         this.showDocument
       );
-      if (this.state.currDocument.length > 0 && pathname.startsWith('/') === true) {
+      if (this.state.currDocument !== null && pathname.startsWith('/') === true) {
         // todo: edit 페이지 검사 구문을 좀 더 넣어야겠다
-        console.log(this.state.currDocument);
-        this.editPage = new EditPage(this.$target, this.state.currDocument);
+        this.editPage = new EditPage(this.$target, this.state.currDocument, this.showDocument);
       }
     } catch (error) {
       console.log(error.message);
@@ -36,13 +35,13 @@ export default class App {
     window.addEventListener('popstate', this.route());
   };
 
-  setCurrDocument = (id) => {
-    this.state.currDocument = id;
-    console.log(this.state.currDocument.length);
-    routeChange(`/${id}`);
+  setCurrDocument = (documentInfo) => { // todo: setState 로 일관성 있게 바꾸는 게 좋을듯
+    this.state.currDocument = documentInfo;
+    routeChange(`/${documentInfo.id}`);
   };
 
-  showDocument = (id) => {
-    this.setCurrDocument(id);
+  showDocument = (documentInfo) => {
+    console.log(documentInfo);
+    this.setCurrDocument(documentInfo);
   };
 }

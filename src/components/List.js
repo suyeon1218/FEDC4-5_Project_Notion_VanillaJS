@@ -79,7 +79,7 @@ export default class List {
       const { id } = $li.dataset;
 
       if ($button === null) {
-        this.showDocument(id);
+        this.showDocument(this.state.documentInfo);
       } else {
         this.checkButtonType($button, id);
       }
@@ -87,7 +87,6 @@ export default class List {
   };
 
   checkButtonType = ($button, id) => {
-    console.log('button click');
     if ($button.className === 'open-toggle-button') {
       const nextState = {
         ...this.state,

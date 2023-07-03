@@ -81,7 +81,7 @@ Root Document 리스트를 호출하여 출력하고, 해당 도큐먼트들의 
 ## 추가 기능
 
 - [x] div 와 contentEditable 을 이용하여 편집기능을 업그레이드 한다.
-- [ ] 편집기 최하단에는 현재 편집 중인 document 의 하위 document 링크를 렌더링한다.
+- [x] 편집기 최하단에는 현재 편집 중인 document 의 하위 document 링크를 렌더링한다.
 - [ ] 편집기 내에서 다른 document name 을 적은 경우 해당 document 의 편집 링크를 거는 기능을 추가한다.
 - [ ] 낙관적 업데이트를 한다.
 - [ ] 리팩토링을 한다.
