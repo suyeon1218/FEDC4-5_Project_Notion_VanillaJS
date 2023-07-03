@@ -14,7 +14,7 @@ ul {
 
 button {
   border: none;
-  background-color: #fff;
+  background-color:  rgb(247, 247, 247);
   cursor: pointer;
 }
 
@@ -74,11 +74,32 @@ input:focus {
   border: none;
 }
 
-textarea {
+div[contenteditable] {
   margin-top: 20px;
   width: 100%;
   height: calc(100% - 5rem);
   border: none;
+}
+
+.edit-button-container button {
+  background-color: #fff;
+  text-align: center;
+}
+
+.btn-bold {
+  font-weight: bold;
+}
+
+.btn-italic {
+  font-style: italic;
+}
+
+.btn-strike {
+  text-decoration: underline;
+}
+
+.btn-ordered {
+  text-decoration: line-through;
 }
 
 .depth-00 {

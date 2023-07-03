@@ -30,7 +30,7 @@ export default class ListPage {
     this.setState(nextState);
   }
 
-  onCreate = async(id) => {
+  onCreate = async(id = null) => {
     const document = {
       title: '제목 없음',
       parent: Number(id),
@@ -48,8 +48,17 @@ export default class ListPage {
       this.state.forEach(document => {
         new List(this.$div, document, 0, this.showDocument, this.onRemove, this.onCreate);
       });
+      // this.$div.innerHTML += `<button class='add-root-toggle-button'>﹢</button>` // todo root document 추가할 수 있도록 해야하는 것도 있어야 함
     } catch (error) {
       console.log(error);
     }
+  }
+
+  addRootDocument = () => {
+    const $rootToggleButton = document.querySelector('.add-root-toggle-button');
+
+    $rootToggleButton.addEventListener('click', () => {
+      this.onCreate();
+    })
   }
 }

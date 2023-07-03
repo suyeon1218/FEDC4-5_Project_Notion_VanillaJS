@@ -25,6 +25,7 @@ export default class EditPage {
   saveDocument = (document) => {
     clearTimeout(this.timer);
     this.timer = setTimeout(async() => {
+      console.log('저장!');
       const editedDocument = await editDocument(this.state.documentId, document);
     }, 200);
   }

@@ -72,6 +72,7 @@ export default class List {
 
   addUlEvent = () => {
     this.$ul.addEventListener('click', (event) => {
+      console.log('click');
       event.stopImmediatePropagation();
       const $li = event.target.closest('li');
       const $button = event.target.closest('button');
@@ -85,7 +86,8 @@ export default class List {
     });
   };
 
-  checkButtonType = async($button, id) => {
+  checkButtonType = ($button, id) => {
+    console.log('button click');
     if ($button.className === 'open-toggle-button') {
       const nextState = {
         ...this.state,

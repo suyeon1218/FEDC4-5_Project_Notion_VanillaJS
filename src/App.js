@@ -3,9 +3,9 @@ import EditPage from './page/EditPage.js';
 import { init, routeChange } from './utils/Route.js';
 
 export default class App {
-  constructor(target, initialState) {
+  constructor(target, rootDocument) {
     this.$target = target;
-    this.state = { rootDocument: initialState, currDocument: initialState[0].id };
+    this.state = { rootDocument: rootDocument, currDocument: '' };
     this.listPage = null;
     this.editPage = null;
     init(this.route);
@@ -17,27 +17,32 @@ export default class App {
     try {
       const { pathname } = location;
       this.$target.innerHTML = ``;
-      this.listPage = new ListPage(this.$target, this.state.rootDocument, this.showDocument);
-      if (pathname.startsWith(`/${this.state.currDocument}`) === true) {
+      this.listPage = new ListPage(
+        this.$target,
+        this.state.rootDocument,
+        this.showDocument
+      );
+      if (this.state.currDocument.length > 0 && pathname.startsWith('/') === true) {
+        // todo: edit 페이지 검사 구문을 좀 더 넣어야겠다
+        console.log(this.state.currDocument);
         this.editPage = new EditPage(this.$target, this.state.currDocument);
-      } 
+      }
     } catch (error) {
       console.log(error.message);
     }
-  }
+  };
 
   addRouteEvent = () => {
     window.addEventListener('popstate', this.route());
-    // Todo: 아마 currDocument 를 localStorage 에 저장해놓고 init 과 동시에 불러오는 식으로 해야 F5 에러 방지할 수 있을 듯
-  }
+  };
 
   setCurrDocument = (id) => {
     this.state.currDocument = id;
+    console.log(this.state.currDocument.length);
     routeChange(`/${id}`);
-  }
+  };
 
   showDocument = (id) => {
-    console.log(id);
-    this.setCurrDocument(Number(id));
-  }
+    this.setCurrDocument(id);
+  };
 }
