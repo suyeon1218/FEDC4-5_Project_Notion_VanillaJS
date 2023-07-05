@@ -1,50 +1,69 @@
-import { getDocumentContent, editDocument } from '../utils/API.js';
-import Edit from '../components/Edit.js';
+import { getContentAPI, editAPI } from '../utils/API.js';
+import DocumentContent from '../components/EditPage/DocumentContent.js';
+import ChildList from '../components/EditPage/ChildList.js';
 
 export default class EditPage {
-  constructor(target, initialState, showDocument) {
+  constructor(target, initialState, selectDocument, reflectTitleChange) {
     this.$target = target;
-    this.state = { documentInfo: initialState, documentData: null }
-    // todo: documentInfo 랑 documentData 구분 되게끔 작명해야할 듯
-    this.showDocument = showDocument;
+    this.state = initialState;
+    this.selectDocument = selectDocument;
+    this.reflectTitleChange = reflectTitleChange;
     this.$div = null;
     this.timer = null;
     this.initDiv();
-    this.fetchDocumentData(initialState.id);
+    this.fetchContent();
   }
 
-  setCurrDocument = (documentInfo) => {
-    this.state.documentInfo = documentInfo;
-    this.fetchDocumentData(documentInfo.id);
-  }
-
-  fetchDocumentData = async(docuemntId) => {
-    const data = await getDocumentContent(docuemntId);
-    this.state.documentData = data;
+  setState = (nextState) => {
+    this.state = nextState;
     this.render();
   }
 
-  saveDocument = (document) => {
-    clearTimeout(this.timer);
-    this.timer = setTimeout(async() => {
-      console.log('저장!');
-      const editedDocument = await editDocument(this.state.documentInfo.id, document);
-    }, 200);
-  }
-
   initDiv = () => {
-    const preDiv = document.querySelector('.content-page-container');
-    if (preDiv !== null) {
-      this.$target.removeNode(preDiv);
+    const $preDiv = document.querySelector('.content-page-container');
+
+    if ($preDiv !== null) {
+      this.$target.removeChild($preDiv);
     }
     this.$div = document.createElement('div');
     this.$div.className = 'content-page-container';
     this.$target.appendChild(this.$div);
+  };
+
+  fetchContent = async () => {
+    const documentContent = await getContentAPI(this.state.id);
+    const nextState = documentContent;
+
+    this.setState(nextState);
+  };
+
+  saveTitle = (editedDocument) => {
+    clearTimeout(this.timer);
+    this.timer = setTimeout(async() => {
+      await editAPI(this.state.id, editedDocument);
+      this.reflectTitleChange();
+    }, 200);
+  };
+
+  saveContent = (editedDocument) => {
+    clearTimeout(this.timer);
+    this.timer = setTimeout(async() => {
+      await editAPI(this.state.id, editedDocument);
+    }, 200);
   }
 
   render = () => {
     this.$div.innerHTML = ``;
-    // todo: 이 무지막지한 매개변수를 좀 어떻게 줄여야 하지 않을까
-    new Edit(this.$div, this.state.documentData, this.state.documentInfo.documents, this.saveDocument, this.showDocument);
-  }
+    new DocumentContent(
+      this.$div,
+      this.state,
+      this.saveTitle,
+      this.saveContent
+    );
+    new ChildList(
+      this.$div,
+      this.state.documents,
+      this.selectDocument
+    )
+  };
 }

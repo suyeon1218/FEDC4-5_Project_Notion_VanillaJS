@@ -1,10 +1,10 @@
 const API_END_POINT = 'https://kdt-frontend.programmers.co.kr/documents';
 
-export const getRootDocument = async() => {
+export const getRootAPI = async() => {
   try {
     const response = await fetch(API_END_POINT, {
       headers: {
-        'x-username': 'roto'
+        'x-username': 'suyeon'
       }
     });
     
@@ -17,11 +17,11 @@ export const getRootDocument = async() => {
   }
 }
 
-export const getDocumentContent = async(id) => {
+export const getContentAPI = async(id) => {
   try {
     const response = await fetch(`${API_END_POINT}/${id}`, {
       headers: {
-        'x-username': 'roto'
+        'x-username': 'suyeon'
       }
     });
 
@@ -34,13 +34,13 @@ export const getDocumentContent = async(id) => {
   }
 }
 
-export const addDocument = async(document) => {
+export const createAPI = async(document) => {
   try {
     const response = await fetch(`${API_END_POINT}`, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
-        'x-username': 'roto'
+        'x-username': 'suyeon'
       }, 
       body: JSON.stringify(document)
     })
@@ -55,13 +55,13 @@ export const addDocument = async(document) => {
   }
 }
 
-export const editDocument = async(id, document) => {
+export const editAPI = async(id, document) => {
   try {
     const response = await fetch(`${API_END_POINT}/${id}`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json',
-        'x-username': 'roto'
+        'x-username': 'suyeon'
       }, 
       body: JSON.stringify(document)
     })
@@ -76,17 +76,17 @@ export const editDocument = async(id, document) => {
   }
 }
 
-export const removeDocument = async(id) => {
+export const removeAPI = async(id) => {
   try {
     const response = await fetch(`${API_END_POINT}/${id}`, {
       headers: {
-        'x-username': 'roto'
+        'x-username': 'suyeon'
       },
       method: 'DELETE'
     })
 
     if (response.ok) {
-      console.log(`${id}document 삭제`);
+      alert('삭제되었습니다.');
     }
   } catch (error) {
     throw new Error(error.message);

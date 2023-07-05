@@ -1,12 +1,12 @@
-import List from '../components/List.js';
-import Modal from '../components/Modal.js';
-import { getRootDocument, removeDocument, addDocument } from '../utils/API.js';
+import { getRootAPI, createAPI, removeAPI } from '../utils/API.js';
+import DocumentList from '../components/ListPage/DocumentList.js';
+import RootCreateButton from '../components/ListPage/RootCreateButton.js';
 
 export default class ListPage {
-  constructor(target, initialState, showDocument) {
-    this.$target = target;
-    this.state = initialState
-    this.showDocument = showDocument
+  constructor($target, initialState, selectDocument) {
+    this.$target = $target;
+    this.state = initialState;
+    this.selectDocument = selectDocument;
     this.$div = null;
     this.initDiv();
     this.render();
@@ -15,50 +15,48 @@ export default class ListPage {
   setState = (nextState) => {
     this.state = nextState;
     this.render();
-  }
-  
+  };
+
   initDiv = () => {
     this.$div = document.createElement('div');
     this.$div.className = 'list-page-container';
     this.$target.appendChild(this.$div);
-  }
+  };
 
-  onRemove = async(id) => {
-    await removeDocument(id);
-    const nextState = await getRootDocument();
-
-    this.setState(nextState);
-  }
-
-  onCreate = async(id = null) => {
-    const document = {
+  createDocument = async (documentId = null) => {
+    const documentInfo = {
       title: '제목 없음',
-      parent: Number(id),
-    }
-    const createdDocument = await addDocument(document);
-    const nextState = await getRootDocument();
-
-    new Modal(this.$target, createdDocument);
+      parent: documentId,
+    };
+    const newDocument = await createAPI(documentInfo);
+    const nextState = await getRootAPI();
     this.setState(nextState);
-  }
+    this.selectDocument(newDocument);
+  };
+
+  removeDocument = async (documentId) => {
+    await removeAPI(documentId);
+    const nextState = await getRootAPI();
+
+    this.selectDocument(null);
+    this.setState(nextState);
+  };
 
   render = () => {
-    try {
-      this.$div.innerHTML = ``;
-      this.state.forEach(document => {
-        new List(this.$div, document, 0, this.showDocument, this.onRemove, this.onCreate);
-      });
-      // this.$div.innerHTML += `<button class='add-root-toggle-button'>﹢</button>` // todo root document 추가할 수 있도록 해야하는 것도 있어야 함
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  addRootDocument = () => {
-    const $rootToggleButton = document.querySelector('.add-root-toggle-button');
-
-    $rootToggleButton.addEventListener('click', () => {
-      this.onCreate();
-    })
-  }
+    this.$div.innerHTML = ``;
+    this.state.forEach((documentInfo) => {
+      const state = {
+        documentInfo: documentInfo,
+        depth: 0
+      }
+      new DocumentList(
+        this.$div,
+        state,
+        this.selectDocument,
+        this.createDocument,
+        this.removeDocument,
+      );
+    });
+    new RootCreateButton(this.$div, this.createDocument);
+  };
 }

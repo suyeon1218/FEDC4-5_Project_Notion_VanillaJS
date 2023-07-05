@@ -1,4 +1,4 @@
-export const setOpenDocument = (id) => {
+export const setOpenDocument = (id) => { 
   try {
     localStorage.setItem(id, true);
   } catch (error) {

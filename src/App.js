@@ -1,45 +1,64 @@
+import { checkRoutValidation } from './utils/Validation.js';
+import { init, routeChange } from './utils/Route.js';
+import { getRootAPI } from './utils/API.js';
 import ListPage from './page/ListPage.js';
 import EditPage from './page/EditPage.js';
-import { init, routeChange } from './utils/Route.js';
 
 export default class App {
   constructor(target, rootDocument) {
     this.$target = target;
     this.state = { rootDocument: rootDocument, currDocument: null };
-    this.listPage = new ListPage(
+    this.$listPage = new ListPage(
       this.$target,
       this.state.rootDocument,
-      this.showDocument
+      this.selectDocument
     );
-    this.editPage = null;
+    this.$editPage = null;
     init(this.route);
     this.route();
-    this.addRouteEvent();
   }
 
   route = () => {
-    try {
-      const { pathname } = location;
-      if (this.state.currDocument !== null && pathname.startsWith('/') === true) {
-        // todo: edit 페이지 검사 구문을 좀 더 넣어야겠다
-        this.editPage = new EditPage(this.$target, this.state.currDocument, this.showDocument);
-      }
-    } catch (error) {
-      console.log(error.message);
+    const { pathname } = location;
+
+    if (checkRoutValidation(pathname, this.state.currDocument) === true) {
+      this.$editPage = new EditPage(
+        this.$target,
+        this.state.currDocument,
+        this.selectDocument,
+        this.reflectTitleChange
+      );
+    } else {
+      const $editPage = document.querySelector('.content-page-container');
+      this.$target.removeChild($editPage);
     }
+    this.addRouteEvent();
   };
 
   addRouteEvent = () => {
-    window.addEventListener('popstate', this.route());
+    window.addEventListener('popstate', this.route);
   };
 
-  setCurrDocument = (documentInfo) => { // todo: setState 로 일관성 있게 바꾸는 게 좋을듯
-    this.state.currDocument = documentInfo;
-    routeChange(`/${documentInfo.id}`);
+  setState = (nextState) => {
+    this.state = nextState;
+
+    const nextRoute = this.state.currDocument === null
+    ? ''
+    : `/${this.state.currDocument.id}`
+
+    routeChange(nextRoute);
   };
 
-  showDocument = (documentInfo) => {
-    console.log(documentInfo);
-    this.setCurrDocument(documentInfo);
+  selectDocument = (selectedDocument) => {
+    const nextState = {
+      ...this.state,
+      currDocument: selectedDocument
+    }
+    this.setState(nextState);
   };
+
+  reflectTitleChange = async() => {
+    const rootDocument = await getRootAPI();
+    this.$listPage.setState(rootDocument);
+  }
 }
