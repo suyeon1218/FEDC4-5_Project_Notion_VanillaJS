@@ -54,7 +54,7 @@ export default class DocumentList {
 
   renderChildDocument = () => {
     if (this.state.documentInfo.documents.length === 0) {
-      new NoneChild(this.$ul, this.state.depth + 2);
+      new NoneChild(this.$ul, this.state.depth + 1);
       return;
     }
 

@@ -24,14 +24,14 @@ export default class DocumentContent {
     this.$div.innerHTML = `
       <input class='title-area' value='${this.state.title}'>
       <div class='edit-button-container'>
-        <button data-command='formatBlock' class='edit-button'>h1</button>
-        <button data-command='formatBlock' class='edit-button'>h2</button>
-        <button data-command='formatBlock' class='edit-button'>h3</button>
-        <button data-command='formatBlock' class='edit-button'>p</button>
-        <button data-command='bold' class='edit-button'>B</button>
-        <button data-command='italic' class='edit-button'>I</button>
-        <button data-command='underline' class='edit-button'>U</button>
-        <button data-command='strikeThrough' class='edit-button'>S</button>
+        <button data-command='formatBlock' class='edit-button btn-h1'>h1</button>
+        <button data-command='formatBlock' class='edit-button btn-h2'>h2</button>
+        <button data-command='formatBlock' class='edit-button btn-h3'>h3</button>
+        <button data-command='formatBlock' class='edit-button btn-p'>p</button>
+        <button data-command='bold' class='edit-button btn-bold'>B</button>
+        <button data-command='italic' class='edit-button btn-italic'>I</button>
+        <button data-command='underline' class='edit-button btn-strike'>U</button>
+        <button data-command='strikeThrough' class='edit-button btn-ordered'>S</button>
       </div>
       <div contenteditable class='content-container'>
         <span>${this.state.content === null ? '' : this.state.content}</span>
