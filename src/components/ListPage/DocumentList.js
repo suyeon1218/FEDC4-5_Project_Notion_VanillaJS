@@ -79,7 +79,6 @@ export default class DocumentList {
       const $li = event.target.closest('li');
       const $button = event.target.closest('button');
       const documentId = $li.dataset.documentid;
-      console.log($li.className);
 
       if ($li.className.startsWith('document-li') === true && $button === null) {
         this.selectDocument(this.state.documentInfo);
