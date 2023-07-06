@@ -1,6 +1,6 @@
-import { checkRoutValidation } from './utils/Validation.js';
+import { checkRouteValidation } from './utils/Validation.js';
 import { init, routeChange } from './utils/Route.js';
-import { getRootAPI } from './utils/API.js';
+import { getRootAPI, getContentAPI } from './utils/API.js';
 import ListPage from './page/ListPage.js';
 import EditPage from './page/EditPage.js';
 
@@ -21,14 +21,15 @@ export default class App {
   route = () => {
     const { pathname } = location;
 
-    if (checkRoutValidation(pathname, this.state.currDocument) === true) {
+    if (checkRouteValidation(pathname, this.state.currDocument) === true) {
       this.$editPage = new EditPage(
         this.$target,
         this.state.currDocument,
         this.selectDocument,
         this.reflectTitleChange
       );
-    } else {
+    }
+    else {
       const $editPage = document.querySelector('.content-page-container');
       this.$target.removeChild($editPage);
     }
@@ -44,7 +45,7 @@ export default class App {
 
     const nextRoute = this.state.currDocument === null
     ? ''
-    : `/${this.state.currDocument.id}`
+    : `/documents/${this.state.currDocument.id}`
 
     routeChange(nextRoute);
   };
