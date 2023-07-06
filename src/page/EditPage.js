@@ -5,7 +5,7 @@ import ChildList from '../components/EditPage/ChildList.js';
 export default class EditPage {
   constructor(target, initialState, selectDocument, reflectTitleChange) {
     this.$target = target;
-    this.state = initialState;
+    this.state = { pathname: initialState, documentContent: null };
     this.selectDocument = selectDocument;
     this.reflectTitleChange = reflectTitleChange;
     this.$div = null;
@@ -31,21 +31,24 @@ export default class EditPage {
   };
 
   fetchContent = async () => {
-    const documentContent = await getContentAPI(this.state.id);
-    const nextState = documentContent;
+    const documentContent = await getContentAPI(this.state.pathname);
+    const nextState = {
+      ...this.state,
+      documentContent: documentContent
+    }
 
     this.setState(nextState);
   };
 
   saveTitle = async(editedDocument) => {
-    await editAPI(this.state.id, editedDocument);
+    await editAPI(this.state.documentContent.id, editedDocument);
     this.reflectTitleChange();
   };
 
   saveContent = (editedDocument) => {
     clearTimeout(this.timer);
     this.timer = setTimeout(async() => {
-      await editAPI(this.state.id, editedDocument);
+      await editAPI(this.state.documentContent.id, editedDocument);
     }, 200);
   }
 
@@ -53,13 +56,13 @@ export default class EditPage {
     this.$div.innerHTML = ``;
     new DocumentContent(
       this.$div,
-      this.state,
+      this.state.documentContent,
       this.saveTitle,
       this.saveContent
     );
     new ChildList(
       this.$div,
-      this.state.documents,
+      this.state.documentContent.documents,
       this.selectDocument
     )
   };

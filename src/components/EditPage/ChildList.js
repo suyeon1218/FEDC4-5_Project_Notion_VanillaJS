@@ -30,7 +30,7 @@ export default class ChildList {
       const $li = event.target.closest('li');
       const { index } = $li.dataset;
 
-      this.selectDocument(this.state[index]);
+      this.selectDocument(this.state[index].id);
     });
   }
 

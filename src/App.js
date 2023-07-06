@@ -7,10 +7,9 @@ import EditPage from './page/EditPage.js';
 export default class App {
   constructor(target, rootDocument) {
     this.$target = target;
-    this.state = { rootDocument: rootDocument, currDocument: null };
     this.$listPage = new ListPage(
       this.$target,
-      this.state.rootDocument,
+      rootDocument,
       this.selectDocument
     );
     this.$editPage = null;
@@ -21,10 +20,10 @@ export default class App {
   route = () => {
     const { pathname } = location;
 
-    if (checkRouteValidation(pathname, this.state.currDocument) === true) {
+    if (checkRouteValidation(pathname) === true) {
       this.$editPage = new EditPage(
         this.$target,
-        this.state.currDocument,
+        pathname,
         this.selectDocument,
         this.reflectTitleChange
       );
@@ -40,22 +39,12 @@ export default class App {
     window.addEventListener('popstate', this.route);
   };
 
-  setState = (nextState) => {
-    this.state = nextState;
-
-    const nextRoute = this.state.currDocument === null
+  selectDocument = (selectedDocumentId) => {
+    const nextRoute = selectedDocumentId === null
     ? ''
-    : `/documents/${this.state.currDocument.id}`
+    : `/documents/${selectedDocumentId}`
 
     routeChange(nextRoute);
-  };
-
-  selectDocument = (selectedDocument) => {
-    const nextState = {
-      ...this.state,
-      currDocument: selectedDocument
-    }
-    this.setState(nextState);
   };
 
   reflectTitleChange = async() => {

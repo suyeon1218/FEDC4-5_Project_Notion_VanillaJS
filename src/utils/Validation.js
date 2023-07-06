@@ -1,8 +1,5 @@
-export const checkRouteValidation = (pathname, currDocument) => {
+export const checkRouteValidation = (pathname) => {
   if (pathname.startsWith('/documents') === false) {
-    return false;
-  }
-  if (currDocument === null) {
     return false;
   }
 

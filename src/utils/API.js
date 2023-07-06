@@ -1,8 +1,8 @@
-const API_END_POINT = 'https://kdt-frontend.programmers.co.kr/documents';
+const API_END_POINT = 'https://kdt-frontend.programmers.co.kr';
 
 export const getRootAPI = async() => {
   try {
-    const response = await fetch(API_END_POINT, {
+    const response = await fetch(`${API_END_POINT}/documents`, {
       headers: {
         'x-username': 'suyeon'
       }
@@ -17,9 +17,9 @@ export const getRootAPI = async() => {
   }
 }
 
-export const getContentAPI = async(id) => {
+export const getContentAPI = async(pathname) => {
   try {
-    const response = await fetch(`${API_END_POINT}/${id}`, {
+    const response = await fetch(`${API_END_POINT}${pathname}`, {
       headers: {
         'x-username': 'suyeon'
       }
@@ -36,7 +36,7 @@ export const getContentAPI = async(id) => {
 
 export const createAPI = async(document) => {
   try {
-    const response = await fetch(`${API_END_POINT}`, {
+    const response = await fetch(`${API_END_POINT}/documents`, {
       method: 'POST',
       headers: {
         'Content-type': 'application/json',
@@ -55,9 +55,9 @@ export const createAPI = async(document) => {
   }
 }
 
-export const editAPI = async(id, document) => {
+export const editAPI = async(pathname, document) => {
   try {
-    const response = await fetch(`${API_END_POINT}/${id}`, {
+    const response = await fetch(`${API_END_POINT}${pathname}`, {
       method: 'PUT',
       headers: {
         'Content-type': 'application/json',
@@ -76,9 +76,9 @@ export const editAPI = async(id, document) => {
   }
 }
 
-export const removeAPI = async(id) => {
+export const removeAPI = async(pathname) => {
   try {
-    const response = await fetch(`${API_END_POINT}/${id}`, {
+    const response = await fetch(`${API_END_POINT}${pathname}`, {
       headers: {
         'x-username': 'suyeon'
       },

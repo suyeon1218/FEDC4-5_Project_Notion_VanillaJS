@@ -81,7 +81,7 @@ export default class DocumentList {
       const documentId = $li.dataset.documentid;
 
       if ($li.className.startsWith('document-li') === true && $button === null) {
-        this.selectDocument(this.state.documentInfo);
+        this.selectDocument(documentId);
       } 
       else if ($button !== null) {
         this.checkButtonType($button, documentId);
