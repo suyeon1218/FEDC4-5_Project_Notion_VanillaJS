@@ -31,15 +31,19 @@ export default class ListPage {
     const newDocument = await createAPI(documentInfo);
     const nextState = await getRootAPI();
     this.setState(nextState);
-    this.selectDocument(newDocument);
+    this.selectDocument(newDocument.id);
   };
 
   removeDocument = async (documentId) => {
-    await removeAPI(documentId);
+    await removeAPI(`/documents/${documentId}`);
     const nextState = await getRootAPI();
+    const { pathname } = location;
 
-    this.selectDocument(null);
     this.setState(nextState);
+
+    if (pathname === `/documents/${documentId}`) {
+      this.selectDocument(null);
+    }
   };
 
   render = () => {

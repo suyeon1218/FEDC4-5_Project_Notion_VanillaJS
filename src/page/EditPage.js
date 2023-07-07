@@ -36,19 +36,18 @@ export default class EditPage {
       ...this.state,
       documentContent: documentContent
     }
-
     this.setState(nextState);
   };
 
   saveTitle = async(editedDocument) => {
-    await editAPI(this.state.documentContent.id, editedDocument);
+    await editAPI(this.state.pathname, editedDocument);
     this.reflectTitleChange();
   };
 
   saveContent = (editedDocument) => {
     clearTimeout(this.timer);
     this.timer = setTimeout(async() => {
-      await editAPI(this.state.documentContent.id, editedDocument);
+      await editAPI(this.state.pathname, editedDocument);
     }, 200);
   }
 

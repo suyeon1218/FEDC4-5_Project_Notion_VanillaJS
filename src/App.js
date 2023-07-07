@@ -41,7 +41,7 @@ export default class App {
 
   selectDocument = (selectedDocumentId) => {
     const nextRoute = selectedDocumentId === null
-    ? ''
+    ? `/`
     : `/documents/${selectedDocumentId}`
 
     routeChange(nextRoute);
